@@ -1,3 +1,80 @@
 /*
 Theme Name: motaphoto
 */
+/* Space Mono - Regular 400 */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.navbar__items, .footer__items {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.navbar__items > a:hover, .footer__items > a:hover {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+body {
+  margin: 0px;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 0px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  height: 80px;
+  width: 1440px;
+}
+.navbar__logo {
+  margin-left: 146px;
+  width: 216px;
+  height: 14px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.navbar__menu {
+  width: 100%;
+}
+.navbar__list {
+  display: flex;
+  justify-content: end;
+  margin-right: 146px;
+}
+.navbar__items:not(:first-child) {
+  margin-left: 45px;
+}
+
+.footer {
+  border-top: 1px black solid;
+  margin: auto;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer__menu {
+  display: flex;
+}
+.footer__items:not(:first-child) {
+  margin-left: 86px;
+}/*# sourceMappingURL=style.css.map */

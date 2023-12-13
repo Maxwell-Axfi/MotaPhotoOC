@@ -9,13 +9,14 @@
 
 <body>
     <header class="navbar">
-        <img class="navbar__logo" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" />
+        <a href="#"><img class="navbar__logo" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" /></a>
         <nav class="navbar__menu">
             <ul class="navbar__list">
-                <li class="navbar__items">Accueil</li>
-                <li class="navbar__items">À propos</li>
-                <li class="navbar__items">Contact</li>
+                <li class="navbar__items"><a href='#'>Accueil</a></li>
+                <li class="navbar__items"><a href='#'>À propos</a></li>
+                <li class="navbar__items"><a href='#'>Contact</a></li>
             </ul> 
         </nav>
+    </header>
 
     <div class="container">

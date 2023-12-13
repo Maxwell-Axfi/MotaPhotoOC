@@ -1,0 +1,24 @@
+/* Space Mono - Regular 400 */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+@mixin set-font($famille, $famille2, $taille, $line, $case, $weight) {
+    font-family: $famille, $famille2;
+    font-size: $taille;
+    line-height: $line;
+    text-transform: $case;
+    font-weight: $weight;
+  }
+
+
+a {
+    color: $noir;
+    text-decoration: none;
+}
+
+.navbar__items, .footer__items {
+    @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 400);
+
+        & > a:hover {
+            @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 700);
+        }
+}

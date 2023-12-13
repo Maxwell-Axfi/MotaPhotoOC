@@ -1,0 +1,16 @@
+.footer {
+    border-top: 1px black solid;
+    margin: auto;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__menu {
+        display: flex;
+    }
+
+    &__items:not(:first-child) {
+        margin-left: 86px;
+    }
+}
