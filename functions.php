@@ -1,22 +1,33 @@
 <?php 
 
-//Ajout style
-function enqueue_styles() {
+// Ajout style et script
+function enqueue_styles_and_scripts() {
+    // Enqueue le style
     wp_enqueue_style(
-        'styles', 
-        get_template_directory_uri() . '/style.css', 
+        'styles',
+        get_template_directory_uri() . '/style.css',
         array(),
         '1.0',
-        'all');
+        'all'
+    );
+
+    // Enqueue le script
+    wp_enqueue_script(
+        'scripts',
+        get_template_directory_uri() . '/js/scripts.js',
+        array(),
+        '1.0',
+        true // Charger le script dans le pied de page
+    );
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_styles');
+add_action('wp_enqueue_scripts', 'enqueue_styles_and_scripts');
 
 
-//Ajout de la fonctionnalité des menus
+// Ajout de la fonctionnalité des menus
 add_theme_support('menus');
 
-//Enregistrer les menus
+// Enregistrer les menus
 function register_custom_menus() {
     register_nav_menus( array(
         'main_menu' => __( 'Menu principal', 'text_domain' ),
@@ -25,5 +36,5 @@ function register_custom_menus() {
 }
   
   add_action('after_setup_theme', 'register_custom_menus');
-  
+
 ?>

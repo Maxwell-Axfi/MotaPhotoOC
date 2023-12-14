@@ -1,4 +1,4 @@
-<div class="overlay">
+<div class="overlay close">
     <div class="modale">
         <img class="modale__img" src="<?php echo get_stylesheet_directory_uri() . '/assets/Contact header.svg'; ?>"/>
         <div class="modale__formulaire">

@@ -61,6 +61,10 @@ body {
   overflow-x: hidden;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 li {
   list-style: none;
 }
@@ -69,6 +73,14 @@ ul {
   margin-block-start: 0em;
   margin-block-end: 0em;
   padding-inline-start: 0px;
+}
+
+.close {
+  display: none;
+}
+
+.open {
+  display: block;
 }
 
 .espace {
@@ -122,6 +134,22 @@ ul {
   pointer-events: none;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .modale {
   width: 585px;
   height: 759px;
@@ -181,6 +209,7 @@ ul {
   background-color: #000000;
   color: white;
   cursor: pointer;
+  transition: all 1s ease-in-out;
 }
 
 .overlay {
@@ -189,4 +218,14 @@ ul {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.overlay.open {
+  animation: fadeIn 1.5s ease-in-out;
+  opacity: 1;
+}
+
+.overlay.fadeout {
+  animation: fadeOut 0.5s ease-in-out;
+  animation-fill-mode: forwards;
 }/*# sourceMappingURL=style.css.map */

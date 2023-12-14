@@ -3,6 +3,10 @@ body {
     overflow-x: hidden;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 li {
     list-style: none;
 }
@@ -13,6 +17,13 @@ ul {
     padding-inline-start: 0px;
 }
 
+.close {
+    display: none;
+}
+
+.open {
+    display: block;
+}
 
 .espace {
     height: 1000px;
