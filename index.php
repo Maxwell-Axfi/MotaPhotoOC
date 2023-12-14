@@ -1,5 +1,5 @@
 <?php get_header() ?>
 
-<!-- Ici votre contenu -->
+<div class="espace"></div>
 
 <?php get_footer() ?>

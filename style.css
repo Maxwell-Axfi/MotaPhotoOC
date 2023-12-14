@@ -8,14 +8,14 @@ a {
   text-decoration: none;
 }
 
-.navbar__items, .footer__items {
+.menu-item {
   font-family: "Space Mono", monospace;
   font-size: 16px;
   line-height: 24px;
   text-transform: uppercase;
   font-weight: 400;
 }
-.navbar__items > a:hover, .footer__items > a:hover {
+.menu-item > a:hover {
   font-family: "Space Mono", monospace;
   font-size: 16px;
   line-height: 24px;
@@ -37,6 +37,10 @@ ul {
   padding-inline-start: 0px;
 }
 
+.espace {
+  height: 500px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -47,6 +51,8 @@ ul {
 }
 .navbar__logo {
   margin-left: 146px;
+}
+.navbar__img {
   width: 216px;
   height: 14px;
   -o-object-fit: contain;
@@ -60,7 +66,7 @@ ul {
   justify-content: end;
   margin-right: 146px;
 }
-.navbar__items:not(:first-child) {
+.navbar .menu-item:not(:first-child) {
   margin-left: 45px;
 }
 
@@ -75,6 +81,9 @@ ul {
 .footer__menu {
   display: flex;
 }
-.footer__items:not(:first-child) {
+.footer .menu-item:not(:first-child) {
   margin-left: 86px;
+}
+.footer__item--not-clickable {
+  pointer-events: none;
 }/*# sourceMappingURL=style.css.map */

@@ -15,7 +15,7 @@ a {
     text-decoration: none;
 }
 
-.navbar__items, .footer__items {
+.menu-item {
     @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 400);
 
         & > a:hover {

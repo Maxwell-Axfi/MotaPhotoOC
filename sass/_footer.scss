@@ -10,7 +10,11 @@
         display: flex;
     }
 
-    &__items:not(:first-child) {
+    .menu-item:not(:first-child) {
         margin-left: 86px;
+    }
+
+    &__item--not-clickable {
+        pointer-events: none;
     }
 }
