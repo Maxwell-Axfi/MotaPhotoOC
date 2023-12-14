@@ -1,5 +1,9 @@
-/* Space Mono - Regular 400 */
+/* Space Mono - Regular 400 et Bold 700 */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/*Poppins*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Space+Mono:wght@400;700&display=swap');
+
 
 @mixin set-font($famille, $famille2, $taille, $line, $case, $weight) {
     font-family: $famille, $famille2;
@@ -21,4 +25,20 @@ a {
         & > a:hover {
             @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 700);
         }
+}
+
+p {
+    @include set-font("Poppins", sans-serif, 14px, 21px, none, 300);
+}
+
+.modale__formulaire p {
+    @include set-font("Poppins", sans-serif, 12px, 18px, uppercase, 500);
+}
+
+.modale__formulaire .wpcf7-submit {
+    @include set-font("Space Mono", monospace, 12px, 18px, none, 400);
+
+    &:hover {
+        @include set-font("Space Mono", monospace, 12px, 18px, none, 700);
+    }
 }

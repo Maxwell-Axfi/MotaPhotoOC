@@ -6,6 +6,7 @@
         ));?>
     </footer>
 
+    <?php get_template_part('templates-part/modale'); ?>
     <?php wp_footer() ?>
 </body>
 </html>
