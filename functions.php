@@ -1,6 +1,6 @@
 <?php 
 
-// Ajout style et script
+// Ajout style et script + jQuery
 function enqueue_styles_and_scripts() {
     // Enqueue le style
     wp_enqueue_style(
@@ -11,11 +11,14 @@ function enqueue_styles_and_scripts() {
         'all'
     );
 
+    // Enqueue jQuery
+    wp_enqueue_script('jquery');
+
     // Enqueue le script
     wp_enqueue_script(
         'scripts',
         get_template_directory_uri() . '/js/scripts.js',
-        array(),
+        array('jquery'), // Dépendance à jQuery
         '1.0',
         true // Charger le script dans le pied de page
     );

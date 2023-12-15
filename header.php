@@ -9,15 +9,18 @@
 
 <body>
     <header class="navbar">
-        <a href="#" class="navbar__logo">
-            <img class="navbar__img" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" />
-        </a>
-        <nav class="navbar__menu">
-            <?php wp_nav_menu( array(
-                'theme_location' => 'main_menu',
-                'menu_class' => 'navbar__list',
-            ));?>
-        </nav>
+        <div class="navbar__conteneur">
+            <a href="#" class="navbar__logo">
+                <img class="navbar__img" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" />
+            </a>
+            <nav class="navbar__menu">
+                <?php wp_nav_menu( array(
+                    'theme_location' => 'main_menu',
+                    'menu_class' => 'navbar__list',
+                ));?>
+            
+            </nav>
+        </div>
     </header>
 
     <div class="container">

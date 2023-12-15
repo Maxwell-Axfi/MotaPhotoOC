@@ -1,60 +1,94 @@
 // Ouverture et fermeture de la popup
-document.addEventListener("DOMContentLoaded", function modale() {
-    const modalOpenButton = document.querySelector('.open_modale');
-    const modalOverlay = document.querySelector('.overlay');
-    const modalContent = document.querySelector('.modale');
-    const body = document.querySelector('body');
+jQuery(document).ready(function() {
+    let referenceText;
+    const modalOpenButton = jQuery('.open_modale');
+    const modalOpenButtonNav = jQuery('.open_modale_nav');
+    const modalOverlay = jQuery('.overlay');
+    const modalContent = jQuery('.modale');
+    const body = jQuery('body');
 
-    // Ouverture de la modale lorsque l'on clique sur "Contact"
-    modalOpenButton.addEventListener("click", function(event) {
-        // Empêcher l'évenement du clic à côté de la modale
+
+    // Ouverture de la modale lorsque l'on clique sur "Contact" de la navbar
+    modalOpenButtonNav.on("click", function(event) {
+        console.log("Clic !");
+        // Empêcher l'événement du clic à côté de la modale
         event.stopPropagation();
         toggleModal();
     });
 
+    // Ouverture de la modale lorsque l'on clique sur "Contact" dans les photos
+    modalOpenButton.on("click", function(event) {
+        console.log("Clic !");
+        // Empêcher l'événement du clic à côté de la modale
+        event.stopPropagation();
+
+        // Récupérer la référence présente sur la page
+        const referenceElement = jQuery('.single-photo__infos--reference');
+        if (referenceElement.length > 0) {
+            // Utiliser .text() directement sur l'élément pour obtenir le texte à l'intérieur
+            const referenceText = referenceElement.text().trim();
+            console.log('Référence récupérée:', referenceText);
+
+            // Ajouter la référence au champ du formulaire
+            const referenceField = jQuery('[name="ref-photo"]');
+            if (referenceField.length > 0) {
+                console.log('Champ du formulaire trouvé:', referenceField);
+
+                if (referenceText) {
+                    referenceField.val(referenceText);
+                    console.log('Référence ajoutée au champ du formulaire:', referenceText);
+
+                    // Puis on appelle toggleModal ici
+                    toggleModal(referenceText);
+                } else {
+                    console.log('Erreur: Référence non définie.');
+                }
+            } else {
+                console.log('Erreur: Champ du formulaire introuvable.');
+            }
+        }
+    });
+
     // Fermeture de la modale lorsque l'on clique à côté
-    document.addEventListener("click", function(event) {
-        if (modalOverlay.classList.contains('open') && !modalContent.contains(event.target)) {
+    jQuery(document).on("click", function(event) {
+        const clickedElement = jQuery(event.target);
+
+        // Vérifier si la modale est ouverte et si l'élément cliqué n'est pas un descendant direct de la modale
+        if (modalOverlay.hasClass('open') && !modalContent.is(clickedElement) && modalContent.has(clickedElement).length === 0) {
             closeModal();
         }
     });
 
     // Fermeture de la modale lorsque l'on appuie sur échap
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape" && modalOverlay.classList.contains('open')) {
+    jQuery(document).on("keydown", function(event) {
+        if (event.key === "Escape" && modalOverlay.hasClass('open')) {
             closeModal();
         }
     });
 
     // Fonction pour ouvrir ou fermer la modale + gestion scroll
-    function toggleModal() {
-
-        if (modalOverlay.classList.contains('open')) {
-            modalOverlay.classList.remove('open');
-            modalOverlay.classList.add('fadeout')
+    function toggleModal(referenceText) {
+        if (modalOverlay.hasClass('open')) {
+            modalOverlay.removeClass('open').addClass('fadeout');
             setTimeout(function() {
-                modalOverlay.classList.add('close');
-                body.classList.remove('modal-open');
+                modalOverlay.addClass('close');
+                body.removeClass('modal-open');
             }, 500);
-            
         } else {
-            modalOverlay.classList.remove('close');
-            modalOverlay.classList.add('open');
-            body.classList.add('modal-open');
-            modalOverlay.classList.remove('fadeout')
+            modalOverlay.removeClass('close').addClass('open');
+            body.addClass('modal-open');
+            modalOverlay.removeClass('fadeout');
         }
     }
 
-     // Fonction pour fermer la modale, seulement si elle est déjà ouverte + gestion scroll
+    // Fonction pour fermer la modale, seulement si elle est déjà ouverte + gestion scroll
     function closeModal() {
-        if (modalOverlay.classList.contains('open')) {
-            modalOverlay.classList.remove('open');
-            modalOverlay.classList.add('fadeout')
+        if (modalOverlay.hasClass('open')) {
+            modalOverlay.removeClass('open').addClass('fadeout');
             setTimeout(function() {
-                modalOverlay.classList.add('close');
-                body.classList.remove('modal-open');
+                modalOverlay.addClass('close');
+                body.removeClass('modal-open');
             }, 500);
-            
         }
     }
 });

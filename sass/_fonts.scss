@@ -1,5 +1,5 @@
-/* Space Mono - Regular 400 et Bold 700 */
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+/* Space Mono - Regular 400 et Bold 700 - Italic 400 */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 /*Poppins*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Space+Mono:wght@400;700&display=swap');
@@ -27,6 +27,11 @@ a {
         }
 }
 
+h2 {
+    @include set-font("Space Mono", monospace, 66px, 58px, uppercase, 400);
+    font-style: italic;
+}
+
 p {
     @include set-font("Poppins", sans-serif, 14px, 21px, none, 300);
 }
@@ -35,10 +40,14 @@ p {
     @include set-font("Poppins", sans-serif, 12px, 18px, uppercase, 500);
 }
 
-.modale__formulaire .wpcf7-submit {
+.modale__formulaire .wpcf7-submit, .button {
     @include set-font("Space Mono", monospace, 12px, 18px, none, 400);
 
     &:hover {
         @include set-font("Space Mono", monospace, 12px, 18px, none, 700);
     }
+}
+
+.single-photo__infos {
+    @include set-font("Space Mono", monospace, 14px, 21px, uppercase, 400);
 }

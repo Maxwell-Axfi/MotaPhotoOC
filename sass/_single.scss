@@ -1,0 +1,42 @@
+.single-photo {
+    width: 1148px;
+    margin: auto;
+
+    &__card {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+    &__col1 {
+        border-bottom: solid 1px black;
+        width: 49%;
+        margin-bottom: 3px;
+    }
+
+    &__title {
+        width: 444px;
+    }
+
+    &__infos {
+        margin-top: 20px;
+
+        &:last-child {
+            margin-bottom: 37px;
+        }
+    }
+
+    &__img {
+        margin-top: 38px;
+        width: 563px;
+        object-fit: contain;
+    }
+
+    &__form {
+        height: 118px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 49%;
+    }
+}

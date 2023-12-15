@@ -1,8 +1,9 @@
+@charset "UTF-8";
 /*
 Theme Name: motaphoto
 */
-/* Space Mono - Regular 400 et Bold 700 */
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+/* Space Mono - Regular 400 et Bold 700 - Italic 400 */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
 /*Poppins*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Space+Mono:wght@400;700&display=swap");
 a {
@@ -25,6 +26,15 @@ a {
   font-weight: 700;
 }
 
+h2 {
+  font-family: "Space Mono", monospace;
+  font-size: 66px;
+  line-height: 58px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: italic;
+}
+
 p {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
@@ -41,19 +51,27 @@ p {
   font-weight: 500;
 }
 
-.modale__formulaire .wpcf7-submit {
+.modale__formulaire .wpcf7-submit, .button {
   font-family: "Space Mono", monospace;
   font-size: 12px;
   line-height: 18px;
   text-transform: none;
   font-weight: 400;
 }
-.modale__formulaire .wpcf7-submit:hover {
+.modale__formulaire .wpcf7-submit:hover, .button:hover {
   font-family: "Space Mono", monospace;
   font-size: 12px;
   line-height: 18px;
   text-transform: none;
   font-weight: 700;
+}
+
+.single-photo__infos {
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  line-height: 21px;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 body {
@@ -87,7 +105,38 @@ ul {
   height: 1000px;
 }
 
+h2, p {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.wpcf7-submit, .button {
+  background-color: #D8D8D8;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.0196078431);
+  transition: all 0.5s ease-in-out;
+}
+.wpcf7-submit:hover, .button:hover {
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.wpcf7-submit {
+  padding: 16px 106px;
+  margin-top: -10px;
+}
+
+.button {
+  padding: 15px 111px;
+}
+
 .navbar {
+  box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.031372549);
+}
+.navbar__conteneur {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -159,7 +208,7 @@ ul {
   justify-content: start;
   align-items: center;
   margin: auto;
-  position: absolute;
+  position: fixed;
   top: 104px;
   left: 50%;
   transform: translateX(-50%);
@@ -197,23 +246,9 @@ ul {
   resize: none;
   padding: 10px 15px;
 }
-.modale__formulaire .wpcf7-submit {
-  background-color: #D8D8D8;
-  padding: 16px 106px;
-  border: none;
-  border-radius: 2px;
-  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.0196078431);
-  margin-top: -10px;
-}
-.modale__formulaire .wpcf7-submit:hover {
-  background-color: #000000;
-  color: white;
-  cursor: pointer;
-  transition: all 1s ease-in-out;
-}
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0px;
   height: 100vh;
   width: 100vw;
@@ -228,4 +263,46 @@ ul {
 .overlay.fadeout {
   animation: fadeOut 0.5s ease-in-out;
   animation-fill-mode: forwards;
+}
+
+/*À faire, gérer le message de validation d'envoi, il est hors champs
+.wpcf7 form .wpcf7-response-output {
+    margin-top: -2em;
+    padding: 0em 0em;
+}*/
+.single-photo {
+  width: 1148px;
+  margin: auto;
+}
+.single-photo__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.single-photo__col1 {
+  border-bottom: solid 1px black;
+  width: 49%;
+  margin-bottom: 3px;
+}
+.single-photo__title {
+  width: 444px;
+}
+.single-photo__infos {
+  margin-top: 20px;
+}
+.single-photo__infos:last-child {
+  margin-bottom: 37px;
+}
+.single-photo__img {
+  margin-top: 38px;
+  width: 563px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.single-photo__form {
+  height: 118px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 49%;
 }/*# sourceMappingURL=style.css.map */
