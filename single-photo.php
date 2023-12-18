@@ -30,7 +30,7 @@ $thumbnail_id = get_post_thumbnail_id($post_id);
 // Récupérer l'URL de l'image mise en avant
 $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
 
-
+/* NAVIGATION AVEC LES FLÈCHES */
 // Configuration de l'argument de requête pour obtenir tous les articles triés par date
 $args = array(
     'post_type'      => 'photo',
@@ -54,24 +54,41 @@ $previous_post_id = isset($all_posts_ids[$current_index + 1]) ? $all_posts_ids[$
 // Récupérer l'ID de l'article suivant dans la boucle
 $next_post_id = isset($all_posts_ids[$current_index - 1]) ? $all_posts_ids[$current_index - 1] : end($all_posts_ids);
 
-// Lien vers l'article précédent
+// URL vers l'article précédent
 $previous_post_link = get_permalink($previous_post_id);
 
-// Lien vers l'article suivant
+// URL vers l'article suivant
 $next_post_link = get_permalink($next_post_id);
 
-// Obtenez l'URL de la miniature pour l'article précédent
+// URL de la miniature pour l'article précédent
 $previous_post_thumbnail_url = $previous_post_id ? get_the_post_thumbnail_url($previous_post_id) : '';
 
-// Obtenez l'URL de la miniature pour l'article suivant
+// URL de la miniature pour l'article suivant
 $next_post_thumbnail_url = $next_post_id ? get_the_post_thumbnail_url($next_post_id) : '';
+
+
+/* SECTION VOUS AIMEREZ AUSSI */
+
+// Récupérer la catégorie du post actuel
+$categories = get_the_category();
+$category_slug = !empty($categories) ? $categories[0]->slug : '';
+
+// WP_Query pour récupérer 2 posts du même custom post type et de la même catégorie
+$args = array(
+    'post_type' => 'photo',
+    'posts_per_page' => 2,
+    'category_name' => $category_slug,
+    'post__not_in' => array(get_the_ID()), // Exclure le post actuel de la liste
+);
+
+$query = new WP_Query($args);
 ?>
 
 
 <section class="single-photo">
     <article class="single-photo__card">
         <div class="single-photo__col1">
-            <h2 class="single-photo__title"><?php echo esc_html($post_title); ?></h2>
+            <h1 class="single-photo__title"><?php echo esc_html($post_title); ?></h1>
             <ul>
                 <li class="single-photo__infos">Référence : <span class="single-photo__infos--reference"><?php echo esc_html($reference); ?></span></li>
                 <li class="single-photo__infos">Catégorie : <?php echo $category_name; ?></li>
@@ -118,6 +135,23 @@ $next_post_thumbnail_url = $next_post_id ? get_the_post_thumbnail_url($next_post
                 </div>
             </div>
         </div>
+    </article>
+
+    <article class="single-photo__more">
+        <h2 class="single-photo__more-title">Vous aimerez aussi</h2>
+        <div class="single-photo__posts">
+                <?php if ($query->have_posts()) : ?>
+                    <?php while ($query->have_posts()) : $query->the_post(); ?>
+                        <a href="<?php the_permalink(); ?>" class="single-photo__more-lien">
+                            <img class="single-photo__more-img" src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                        </a>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); // Réinitialiser les données du post ?>
+                <?php else : ?>
+                    <p>Aucun autre post trouvé.</p>
+                <?php endif; ?>
+            </div>
+        <button class="button single-photo__more-button">Toutes les photos</button>
     </article>
 </section>
 

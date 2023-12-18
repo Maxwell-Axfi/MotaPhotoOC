@@ -27,9 +27,13 @@ a {
         }
 }
 
-h2 {
+.single-photo__title {
     @include set-font("Space Mono", monospace, 66px, 58px, uppercase, 400);
     font-style: italic;
+}
+
+.single-photo__more-title {
+    @include set-font("Space Mono", monospace, 18px, 27px, uppercase, 400);
 }
 
 p {
