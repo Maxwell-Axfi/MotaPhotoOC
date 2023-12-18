@@ -74,14 +74,15 @@ $categories = get_the_category();
 $category_slug = !empty($categories) ? $categories[0]->slug : '';
 
 // WP_Query pour récupérer 2 posts du même custom post type et de la même catégorie
-$args = array(
+$related_posts_args = array(
     'post_type' => 'photo',
     'posts_per_page' => 2,
     'category_name' => $category_slug,
     'post__not_in' => array(get_the_ID()), // Exclure le post actuel de la liste
+    'orderby' => 'rand', // Ordre aléatoire
 );
 
-$query = new WP_Query($args);
+$query = new WP_Query($related_posts_args);
 ?>
 
 
