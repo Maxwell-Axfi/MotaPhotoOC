@@ -40,4 +40,7 @@ function register_custom_menus() {
   
   add_action('after_setup_theme', 'register_custom_menus');
 
+// Ajout des modèles de page personnalisés
+add_theme_support('page-templates');
+
 ?>

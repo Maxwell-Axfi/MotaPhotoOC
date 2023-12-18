@@ -10,44 +10,35 @@ jQuery(document).ready(function() {
 
     // Ouverture de la modale lorsque l'on clique sur "Contact" de la navbar
     modalOpenButtonNav.on("click", function(event) {
-        console.log("Clic !");
         // Empêcher l'événement du clic à côté de la modale
         event.stopPropagation();
         toggleModal();
     });
 
-    // Ouverture de la modale lorsque l'on clique sur "Contact" dans les photos
+// Ouverture de la modale lorsque l'on clique sur "Contact" dans les photos
     modalOpenButton.on("click", function(event) {
-        console.log("Clic !");
         // Empêcher l'événement du clic à côté de la modale
         event.stopPropagation();
 
         // Récupérer la référence présente sur la page
         const referenceElement = jQuery('.single-photo__infos--reference');
-        if (referenceElement.length > 0) {
-            // Utiliser .text() directement sur l'élément pour obtenir le texte à l'intérieur
-            const referenceText = referenceElement.text().trim();
-            console.log('Référence récupérée:', referenceText);
+        if (referenceElement.length === 0) return;
 
-            // Ajouter la référence au champ du formulaire
-            const referenceField = jQuery('[name="ref-photo"]');
-            if (referenceField.length > 0) {
-                console.log('Champ du formulaire trouvé:', referenceField);
+        // Utiliser .text() directement sur l'élément pour obtenir le texte à l'intérieur
+        const referenceText = referenceElement.text().trim();
 
-                if (referenceText) {
-                    referenceField.val(referenceText);
-                    console.log('Référence ajoutée au champ du formulaire:', referenceText);
+        // Ajouter la référence au champ du formulaire
+        const referenceField = jQuery('[name="ref-photo"]');
+        if (referenceField.length === 0) return;
 
-                    // Puis on appelle toggleModal ici
-                    toggleModal(referenceText);
-                } else {
-                    console.log('Erreur: Référence non définie.');
-                }
-            } else {
-                console.log('Erreur: Champ du formulaire introuvable.');
-            }
+        if (referenceText) {
+            referenceField.val(referenceText);
+
+            // Puis on appelle toggleModal ici
+            toggleModal(referenceText);
         }
     });
+
 
     // Fermeture de la modale lorsque l'on clique à côté
     jQuery(document).on("click", function(event) {
@@ -92,3 +83,30 @@ jQuery(document).ready(function() {
         }
     }
 });
+
+
+
+/* Apparission miniature au survol des flèches */
+    document.addEventListener('DOMContentLoaded', function() {
+        var tailleFleche1 = document.querySelector('.single-photo__taille-fleche1');
+        var tailleFleche2 = document.querySelector('.single-photo__taille-fleche2');
+        var previousImg = document.querySelector('.miniature.previous-img');
+        var nextImg = document.querySelector('.miniature.next-img');
+
+        function handleHover(element, targetImg, opacityValue) {
+            element.addEventListener('mouseover', function() {
+                targetImg.style.opacity = opacityValue;
+            });
+
+            element.addEventListener('mouseout', function() {
+                targetImg.style.opacity = 0;
+            });
+        }
+
+        handleHover(tailleFleche1, previousImg, 1);
+        handleHover(tailleFleche2, nextImg, 1);
+    });
+
+
+
+

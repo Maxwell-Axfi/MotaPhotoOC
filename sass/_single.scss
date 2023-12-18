@@ -10,8 +10,10 @@
 
     &__col1 {
         border-bottom: solid 1px black;
-        width: 49%;
-        margin-bottom: 3px;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
     }
 
     &__title {
@@ -26,10 +28,23 @@
         }
     }
 
+    &__col2 {
+        display: flex;
+        justify-content: flex-end;
+        align-items: end;
+        width: 50%;
+    }
+
     &__img {
-        margin-top: 38px;
-        width: 563px;
-        object-fit: contain;
+        margin-top: 37px;
+        height: 86vh;
+        width: 100%;
+        max-width: 554px;
+        object-fit: cover;
+    }
+
+    &__cta {
+        display: flex;
     }
 
     &__form {
@@ -37,6 +52,68 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 49%;
+        width: 50%;
+    }
+
+    &__nav {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+
+        .miniature {
+            width: 82px;
+            height: 72px; 
+            object-fit: cover;
+            margin-bottom: 8px;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .previous-img {
+            position: relative;
+            left: 86px;
+        }
+    }
+        
+    &__fleches {
+            max-height: 14.22px;
+            width: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    }
+
+    .fleche {
+        transition: all 0.2s ease-in-out;
+        overflow: hidden;
+        width: 32px;
+    }
+
+    &__taille-fleche1 {
+        width: 32px;
+        overflow: hidden;
+            
+        .gauche {
+            margin-left: 8px;
+    
+            &:hover {
+                margin-left: 0px;
+            }
+        }
+    }
+
+    &__taille-fleche2 {
+            width: 32px;
+            overflow: hidden;
+
+        .droite {
+            margin-left: -8px;
+
+            &:hover {
+                margin-left: 0px;
+            }
+        }
     }
 }

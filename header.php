@@ -10,7 +10,7 @@
 <body>
     <header class="navbar">
         <div class="navbar__conteneur">
-            <a href="#" class="navbar__logo">
+            <a href="<?php echo home_url(); ?>" class="navbar__logo">
                 <img class="navbar__img" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" />
             </a>
             <nav class="navbar__menu">

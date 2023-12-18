@@ -30,7 +30,43 @@ $thumbnail_id = get_post_thumbnail_id($post_id);
 // Récupérer l'URL de l'image mise en avant
 $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
 
+
+// Configuration de l'argument de requête pour obtenir tous les articles triés par date
+$args = array(
+    'post_type'      => 'photo',
+    'posts_per_page' => -1,
+    'order'          => 'DESC',
+    'orderby'        => 'date',
+);
+
+// Exécution de la requête pour obtenir tous les articles triés par date
+$all_posts_query = new WP_Query($args);
+
+// Récupération des ID de tous les articles triés par date
+$all_posts_ids = wp_list_pluck($all_posts_query->posts, 'ID');
+
+// Trouver l'index de l'article actuel dans le tableau
+$current_index = array_search($post_id, $all_posts_ids);
+
+// Récupérer l'ID de l'article précédent dans la boucle
+$previous_post_id = isset($all_posts_ids[$current_index + 1]) ? $all_posts_ids[$current_index + 1] : reset($all_posts_ids);
+
+// Récupérer l'ID de l'article suivant dans la boucle
+$next_post_id = isset($all_posts_ids[$current_index - 1]) ? $all_posts_ids[$current_index - 1] : end($all_posts_ids);
+
+// Lien vers l'article précédent
+$previous_post_link = get_permalink($previous_post_id);
+
+// Lien vers l'article suivant
+$next_post_link = get_permalink($next_post_id);
+
+// Obtenez l'URL de la miniature pour l'article précédent
+$previous_post_thumbnail_url = $previous_post_id ? get_the_post_thumbnail_url($previous_post_id) : '';
+
+// Obtenez l'URL de la miniature pour l'article suivant
+$next_post_thumbnail_url = $next_post_id ? get_the_post_thumbnail_url($next_post_id) : '';
 ?>
+
 
 <section class="single-photo">
     <article class="single-photo__card">
@@ -58,10 +94,29 @@ $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
         </div>
     </article>
 
-    <article class="single-photo__nav">
+    <article class="single-photo__cta">
         <div class="single-photo__form">
             <p>Cette photo vous intéresse ?</p>
             <button class="button open_modale">Contact</button>
+        </div>
+
+        <div class="single-photo__nav">
+            <div class="single-photo__miniature">
+                <img class="miniature previous-img" src="<?php echo esc_url($previous_post_thumbnail_url); ?>"/>
+                <img class="miniature next-img" src="<?php echo esc_url($next_post_thumbnail_url); ?>"/>
+            </div>
+            <div class="single-photo__fleches">
+                <div class="single-photo__taille-fleche1">
+                    <a href="<?php echo esc_url($previous_post_link); ?>">    
+                        <img class="fleche gauche" src="<?php echo get_stylesheet_directory_uri() . '/assets/grande-fleche-gauche.svg'; ?>"/>
+                    </a>
+                </div>
+                <div class="single-photo__taille-fleche2">
+                    <a href="<?php echo esc_url($next_post_link); ?>">  
+                        <img class="fleche droite" src="<?php echo get_stylesheet_directory_uri() . '/assets/grande-fleche-droite.svg'; ?>"/>
+                    </a>
+                </div>
+            </div>
         </div>
     </article>
 </section>

@@ -19,10 +19,6 @@ a {
   font-weight: 400;
 }
 .menu-item > a:hover {
-  font-family: "Space Mono", monospace;
-  font-size: 16px;
-  line-height: 24px;
-  text-transform: uppercase;
   font-weight: 700;
 }
 
@@ -131,6 +127,14 @@ h2, p {
 
 .button {
   padding: 15px 111px;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .navbar {
@@ -281,8 +285,10 @@ h2, p {
 }
 .single-photo__col1 {
   border-bottom: solid 1px black;
-  width: 49%;
-  margin-bottom: 3px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 .single-photo__title {
   width: 444px;
@@ -293,16 +299,79 @@ h2, p {
 .single-photo__infos:last-child {
   margin-bottom: 37px;
 }
+.single-photo__col2 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  width: 50%;
+}
 .single-photo__img {
-  margin-top: 38px;
-  width: 563px;
-  -o-object-fit: contain;
-     object-fit: contain;
+  margin-top: 37px;
+  height: 86vh;
+  width: 100%;
+  max-width: 554px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.single-photo__cta {
+  display: flex;
 }
 .single-photo__form {
   height: 118px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 49%;
+  width: 50%;
+}
+.single-photo__nav {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+.single-photo__nav .miniature {
+  width: 82px;
+  height: 72px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 8px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.single-photo__nav .previous-img {
+  position: relative;
+  left: 86px;
+}
+.single-photo__fleches {
+  max-height: 14.22px;
+  width: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.single-photo .fleche {
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  width: 32px;
+}
+.single-photo__taille-fleche1 {
+  width: 32px;
+  overflow: hidden;
+}
+.single-photo__taille-fleche1 .gauche {
+  margin-left: 8px;
+}
+.single-photo__taille-fleche1 .gauche:hover {
+  margin-left: 0px;
+}
+.single-photo__taille-fleche2 {
+  width: 32px;
+  overflow: hidden;
+}
+.single-photo__taille-fleche2 .droite {
+  margin-left: -8px;
+}
+.single-photo__taille-fleche2 .droite:hover {
+  margin-left: 0px;
 }/*# sourceMappingURL=style.css.map */

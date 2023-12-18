@@ -23,7 +23,7 @@ a {
     @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 400);
 
         & > a:hover {
-            @include set-font("Space Mono", monospace, 16px, 24px, uppercase, 700);
+            font-weight: 700;
         }
 }
 
