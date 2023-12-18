@@ -120,21 +120,11 @@
 
     &__more {
         margin-top: 77px;
-
+        
         &-title {
             margin-bottom: 52px;
         }
-
-        &-img {
-            width: 564px;
-            height: 495px;
-            object-fit: cover;
-        }
-
-        &-lien:nth-child(2n) {
-            margin-left: 16px;
-        }
-
+        
         &-button {
             display: block;
             margin: 53px auto 64px auto;

@@ -139,18 +139,23 @@ $query = new WP_Query($args);
 
     <article class="single-photo__more">
         <h2 class="single-photo__more-title">Vous aimerez aussi</h2>
-        <div class="single-photo__posts">
-                <?php if ($query->have_posts()) : ?>
-                    <?php while ($query->have_posts()) : $query->the_post(); ?>
-                        <a href="<?php the_permalink(); ?>" class="single-photo__more-lien">
-                            <img class="single-photo__more-img" src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
-                        </a>
-                    <?php endwhile; ?>
-                    <?php wp_reset_postdata(); // Réinitialiser les données du post ?>
-                <?php else : ?>
-                    <p>Aucun autre post trouvé.</p>
-                <?php endif; ?>
-            </div>
+        <?php
+    $post_ids = array();
+
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+            $post_ids[] = get_the_ID();
+        endwhile;
+        wp_reset_postdata(); // Réinitialiser les données du post
+    else :
+        // Aucun post trouvé
+        ?>
+        <p>Aucun autre post trouvé.</p>
+    <?php endif;
+
+    // Utilisez get_template_part avec le deuxième paramètre pour passer les IDs des posts
+    get_template_part('templates-part/photo_block', null, ['post_ids' => $post_ids]);
+    ?>
         <button class="button single-photo__more-button">Toutes les photos</button>
     </article>
 </section>
