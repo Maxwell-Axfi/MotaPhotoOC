@@ -1,0 +1,21 @@
+.accueil__header {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 966px;
+
+    &-h1 {
+        align-self: center;
+        position: absolute;
+    }
+
+    &-background {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+.accueil__photo-block {
+    width: 1440px;
+    margin: 160px auto 130px auto;
+}

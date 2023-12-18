@@ -93,20 +93,21 @@ jQuery(document).ready(function() {
         var previousImg = document.querySelector('.miniature.previous-img');
         var nextImg = document.querySelector('.miniature.next-img');
 
+        if (tailleFleche1 && previousImg) {
+            handleHover(tailleFleche1, previousImg, 1);
+        }
+    
+        if (tailleFleche2 && nextImg) {
+            handleHover(tailleFleche2, nextImg, 1);
+        }
+    
         function handleHover(element, targetImg, opacityValue) {
             element.addEventListener('mouseover', function() {
                 targetImg.style.opacity = opacityValue;
             });
-
+    
             element.addEventListener('mouseout', function() {
                 targetImg.style.opacity = 0;
             });
         }
-
-        handleHover(tailleFleche1, previousImg, 1);
-        handleHover(tailleFleche2, nextImg, 1);
     });
-
-
-
-

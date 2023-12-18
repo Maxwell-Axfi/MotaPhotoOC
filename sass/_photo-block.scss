@@ -1,12 +1,17 @@
 .photo-block {
-
-        &__lien:nth-child(2n) {
-            margin-left: 16px;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    
+    &__lien:nth-child(2n) {
+        margin-left: 20px;
+    }
 
     &__img {
         width: 564px;
         height: 495px;
         object-fit: cover;
+        margin-bottom: 18px;
     }
 }
