@@ -147,11 +147,7 @@ $query = new WP_Query($args);
             $post_ids[] = get_the_ID();
         endwhile;
         wp_reset_postdata(); // Réinitialiser les données du post
-    else :
-        // Aucun post trouvé
-        ?>
-        <p>Aucun autre post trouvé.</p>
-    <?php endif;
+     endif;
 
     // Utilisez get_template_part avec le deuxième paramètre pour passer les IDs des posts
     get_template_part('templates-part/photo_block', null, ['post_ids' => $post_ids]);

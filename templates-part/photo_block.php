@@ -12,5 +12,5 @@ if (!empty($post_ids)) :
         <?php endforeach; ?>
     </div>
 <?php else : ?>
-    <p>Aucun autre post trouvé.</p>
+    <p>Aucun post trouvé.</p>
 <?php endif; ?>
