@@ -55,10 +55,6 @@ p {
   font-weight: 400;
 }
 .modale__formulaire .wpcf7-submit:hover, .button:hover {
-  font-family: "Space Mono", monospace;
-  font-size: 12px;
-  line-height: 18px;
-  text-transform: none;
   font-weight: 700;
 }
 

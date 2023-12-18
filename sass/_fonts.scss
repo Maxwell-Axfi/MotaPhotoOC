@@ -44,7 +44,7 @@ p {
     @include set-font("Space Mono", monospace, 12px, 18px, none, 400);
 
     &:hover {
-        @include set-font("Space Mono", monospace, 12px, 18px, none, 700);
+        font-weight: 700;
     }
 }
 
