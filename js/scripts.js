@@ -111,3 +111,74 @@ jQuery(document).ready(function() {
             });
         }
     });
+
+
+    // Ajax
+    (function ($) {
+        $(document).ready(function () {
+    
+            // Chargement des commentaires en Ajax
+            $('.accueil__button').click(function (e) {
+    
+                // Empêcher l'envoi classique du formulaire
+                e.preventDefault();
+    
+                // L'URL qui réceptionne les requêtes Ajax dans le data-ajaxurl du bouton
+                const ajaxurl = $(this).data('ajaxurl');
+    
+                // Les données du bouton
+                // ⚠️ Ne changez pas le nom "action" !
+                const data = {
+                    action: 'load_photos',
+                    nonce: $(this).data('nonce'),
+                    paged: $(this).data('paged') || 1,
+                }
+    
+                // Pour vérifier qu'on a bien récupéré les données
+                console.log('Ajax URL:', ajaxurl);
+                console.log('Data:', data);
+    
+                // Requête Ajax en JS natif via Fetch
+                fetch(ajaxurl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Cache-Control': 'no-cache',
+                    },
+                    body: new URLSearchParams(data),
+                })
+                .then(response => response.json())
+                .then(body => {
+                    console.log('Ajax Response:', body);
+    
+                    // En cas d'erreur
+                    if (!body.success) {
+                        console.error('Erreur:', body.data);
+                        alert('Erreur lors du chargement des photos. Veuillez réessayer.');
+                        return;
+                    }
+    
+                    // Et en cas de réussite
+                    const $photosContainer = $('.accueil__photo-block'); // Mettez à jour la classe selon votre structure HTML
+                    
+                    // Créez un élément div temporaire pour contenir le HTML
+                    const tempDiv = $('<div>').html(body.data.html);
+
+                    // Utilisez insertBefore pour insérer le contenu avant le bouton
+                    tempDiv.insertBefore('.accueil__button');
+    
+                    // Mettez à jour l'attribut data-paged pour la prochaine requête
+                    $('.accueil__button').data('paged', body.data.paged);
+
+                    // Vérifiez s'il y a plus de posts à charger
+                    if (body.data.no_more_posts) {
+                    $('.accueil__button').hide(); // Cache le bouton s'il n'y a plus de posts à charger
+            }})
+
+                .catch(error => {
+                    console.error('Erreur lors de la requête Ajax:', error);
+                    alert('Une erreur inattendue s\'est produite. Veuillez réessayer.');
+                });
+            });
+        });
+    })(jQuery);

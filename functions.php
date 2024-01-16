@@ -43,4 +43,59 @@ function register_custom_menus() {
 // Ajout des modèles de page personnalisés
 add_theme_support('page-templates');
 
+
+// Ajax
+add_action( 'wp_ajax_load_photos', 'load_photos' );
+add_action( 'wp_ajax_nopriv_load_photos', 'load_photos' );
+
+function load_photos() {
+    // Vérification de sécurité
+    if (
+        ! isset( $_REQUEST['nonce'] ) ||
+        ! wp_verify_nonce( $_REQUEST['nonce'], 'load_photos' )
+    ) {
+        wp_send_json_error( "Erreur de vérification de sécurité. Vous n’avez pas l’autorisation d’effectuer cette action.", 403 );
+    }
+
+    // Vérification de la présence de 'paged'
+    if ( ! isset( $_POST['paged'] ) ) {
+        wp_send_json_error( "Erreur: 'paged' est manquant dans les données de la requête.", 400 );
+    }
+
+    // Récupération des données du formulaire
+    $paged = intval( $_POST['paged'] );
+
+    // Requête des photos avec pagination
+    $query = new WP_Query( array(
+        'post_type'      => 'photo',
+        'posts_per_page' => get_option('posts_per_page'),
+        'paged'          => $paged,
+    ) );
+
+    // Préparer le HTML des photos
+    ob_start();
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+            $post_ids[] = get_the_ID();
+        endwhile;
+
+        // Vérifier si des posts ont été trouvés avant d'inclure le template partiel
+        if (!empty($post_ids)) {
+            // Utilisez get_template_part avec le deuxième paramètre pour passer les IDs des posts
+            get_template_part('templates-part/photo_block', null, ['post_ids' => $post_ids]);
+        } else {
+            echo '<p>Aucun post trouvé.</p>';
+        }
+
+        wp_reset_postdata(); // Réinitialiser les données du post
+    endif;
+    $html = ob_get_clean();
+
+    // Vérifier s'il y a plus de posts à charger
+    $no_more_posts = ($query->max_num_pages <= $paged);
+
+    // Envoyer les données au navigateur
+    wp_send_json_success( array( 'html' => $html, 'paged' => $paged + 1, 'no_more_posts' => $no_more_posts) );
+}
+
 ?>

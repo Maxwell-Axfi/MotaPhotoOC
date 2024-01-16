@@ -17,5 +17,11 @@
 }
 .accueil__photo-block {
     width: 1440px;
-    margin: 160px auto 130px auto;
+    margin: 160px auto 0px auto;
+
+    .accueil__button {
+        display: block;
+        margin: 22px auto 40px auto;
+        padding: 15px 90px;
+    }
 }
