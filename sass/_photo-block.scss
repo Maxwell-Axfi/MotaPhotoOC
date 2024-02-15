@@ -1,17 +1,100 @@
 .photo-block {
+    width: 1148px;
+    margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    
-    &__lien:nth-child(2n) {
-        margin-left: 20px;
+
+    &> p {
+        margin: 100px 0px 139px 0px;
+    }
+
+    &__container {
+        width: 564px;
+        height: 495px;
+        margin-bottom: 18px;
+
+
+        &:nth-child(2n) {
+            margin-left: 20px;
+        }
     }
 
     &__img {
-        width: 564px;
-        height: 495px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        margin-bottom: 18px;
+    }
+
+    &__overlay {
+        position:relative;
+        bottom: 0px;
+        top: -499px;
+        width: 100%;
+        height: 100%;
+        transition: .5s ease;
+        opacity:0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.6);
+
+        &-texte {
+            color: white;
+            text-transform: uppercase;
+            padding-bottom: 14px;
+        }
+
+        &-reference {
+            padding-left: 20px;
+            position: absolute;
+            left: 0%;
+            bottom: 0%;
+        }
+
+        &-categorie {
+            padding-right: 20px;
+            position: absolute;
+            right: 0%;
+            bottom: 0%;
+        }
+
+        &-lien {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        &-fullscreen {
+            position: absolute;
+            top: 0%;
+            right: 0%;
+            padding-top: 20px;
+            padding-right: 20px;
+        }
     }
 }
+
+.photo-block__container:hover .photo-block__overlay {
+    opacity: 1;
+  }
+
+/*.overlay {
+    transition: all 0.5s ease-in-out;
+    
+    .overlay::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0; 
+        background-color: #000000;
+        width: 100%;
+        height: 100%; 
+        opacity: 0;  
+        transition: all 0.5s ease-in-out;
+
+        .overlay::before:hover {
+            opacity: 0.5;
+        }
+    }
+}*/

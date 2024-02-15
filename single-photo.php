@@ -140,6 +140,7 @@ $query = new WP_Query($related_posts_args);
 
     <article class="single-photo__more">
         <h2 class="single-photo__more-title">Vous aimerez aussi</h2>
+        <div class="photo-block">
         <?php
     $post_ids = array();
 
@@ -153,6 +154,7 @@ $query = new WP_Query($related_posts_args);
     // Utilisez get_template_part avec le deuxième paramètre pour passer les IDs des posts
     get_template_part('templates-part/photo_block', null, ['post_ids' => $post_ids]);
     ?>
+        </div>
         <button class="button single-photo__more-button">Toutes les photos</button>
     </article>
 </section>

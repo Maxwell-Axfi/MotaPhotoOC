@@ -8,10 +8,7 @@
 
     &__menu {
         display: flex;
-    }
-
-    .menu-item:not(:first-child) {
-        margin-left: 86px;
+        gap: 86px;
     }
 
     &__item--not-clickable {
