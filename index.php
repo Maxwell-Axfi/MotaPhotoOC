@@ -7,7 +7,8 @@ Template Name: Accueil
 
 
 <?php
-// WP_Query pour récupérer 12 posts du même custom post type
+
+// WP_Query pour récupérer x posts du même custom post type
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 
 $args = array(

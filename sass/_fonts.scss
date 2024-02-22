@@ -75,6 +75,7 @@ a {
 
 .single-photo__more-title {
     @include set-font("Space Mono", monospace, 18px, 27px, uppercase, 400);
+    letter-spacing: 1px;
 }
 
 p {
@@ -97,8 +98,17 @@ p {
     }
 }
 
-.single-photo__infos, .overlay-categorie {
+.lightbox__texte {
+    @include set-font("Poppins", sans-serif, 14px, 21px, uppercase, 500);
+}
+
+.lightbox__prev p, .lightbox__next p {
+    @include set-font("Space Mono", monospace, 12px, 18px, none, 400);
+}
+
+.single-photo__infos, .photo-block__overlay-categorie, .lightbox-categorie {
     @include set-font("Space Mono", monospace, 14px, 21px, uppercase, 400);
+    letter-spacing: 1px;
 }
 
 .accueil__header-h1 {

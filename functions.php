@@ -23,7 +23,7 @@ function enqueue_styles_and_scripts() {
         true // Charger le script dans le pied de page
     );
 
-    // Passer des données à script.js
+    // Passer des données à script.js avec Ajax
     wp_localize_script('scripts', 'ajax_object', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('filtration'),
@@ -32,6 +32,36 @@ function enqueue_styles_and_scripts() {
 
 add_action('wp_enqueue_scripts', 'enqueue_styles_and_scripts');
 
+// Fonction pour obtenir les arguments personnalisés en fonction du contexte, pour afficher les posts sur la page accueil et single-post
+function get_custom_post_args($context) {
+    $args = array(); // Définissez vos arguments par défaut ici
+
+    switch ($context) {
+        case 'homepage':
+            // Personnalisez les arguments pour la page d'accueil
+            $args = array(
+                'post_type' => 'photo',
+                'posts_per_page' => get_option('posts_per_page'),
+                'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            );
+            break;
+        case 'single':
+            // Personnalisez les arguments pour la page de post unique
+            $categories = get_the_category();
+            $category_slug = !empty($categories) ? $categories[0]->slug : '';
+            $args = array(
+                'post_type' => 'photo',
+                'posts_per_page' => 2,
+                'category_name' => $category_slug,
+                'post__not_in' => array(get_the_ID()),
+                'orderby' => 'rand',
+            );
+            break;
+        // Ajoutez d'autres cas ici selon les besoins
+    }
+
+    return $args;
+}
 
 // Ajout de la fonctionnalité des menus
 
@@ -149,26 +179,4 @@ function filtration() {
         wp_die();
     }
 }
-
-
-
-
-// Ajax pour lightbox
-
-add_action('wp_ajax_get_post_info', 'get_post_info');
-add_action('wp_ajax_nopriv_get_post_info', 'get_post_info');
-
-function get_post_info() {
-    // Récupérer les données du POST
-    $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
-
-    // Sortie des informations du post en utilisant get_template_part
-    ob_start();
-    get_template_part('templates-part/lightbox', null, array('post_id' => $post_id));
-    $output = ob_get_clean();
-
-    // Retourner les informations du post
-    wp_send_json_success($output);
-}
-
 ?>

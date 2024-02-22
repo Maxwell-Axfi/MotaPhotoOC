@@ -1,5 +1,5 @@
 .single-photo {
-    width: 1148px;
+    width: 1150px;
     margin: auto;
 
     &__card {
@@ -120,15 +120,21 @@
 
     &__more {
         margin-top: 77px;
+        margin-bottom: 93px;
         
         &-title {
             margin-bottom: 52px;
         }
-        
-        &-button {
-            display: block;
-            margin: 35px auto 64px auto;
-            padding: 15px 70px;
-        }
     }
+}
+
+
+.single-photo__more-button:hover .single-photo__more-button-a {
+    color: white;
+    transition: color 0.5s ease-in-out;
+}
+
+.single-photo__more-button .single-photo__more-button-a {
+    color: black;
+    transition: color 0.5s ease-in-out;
 }

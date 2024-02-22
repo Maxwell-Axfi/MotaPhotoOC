@@ -1,0 +1,143 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.lightbox__overlay {
+    position: fixed;
+    top: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000CC;
+
+
+}
+
+.lightbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 1150px;
+    margin: 0px auto;
+
+    &__image {
+        object-fit: contain;
+        max-height: 85vh;
+        max-width: 900px;
+    }
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 1150px;
+        margin: 20px auto;
+    }
+
+    &__close-container {
+        width: 1150px;
+        position: absolute;
+        text-align: end;
+        top: 50px;
+    }
+
+    &__close {
+        cursor: pointer;
+    }
+
+    &__infos {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 13px;
+    }
+
+    &__texte {
+        color: white;
+    }
+}
+
+.fleche-lightbox__container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.fleche-lightbox {
+    filter: invert(100%);
+    transition: all 0.2s ease-in-out;
+    width: 35px;
+}
+
+.gauche {
+    transform: translateX(7px);
+
+    &:hover {
+        transform: translateX(0px);
+    }
+}
+
+.droite {
+    transform: translateX(-7px);
+
+    &:hover {
+        transform: translateX(0px);
+    }
+}
+
+.lightbox__prev, .lightbox__next {
+    color: white !important;
+    display: flex;
+    cursor: pointer;
+}
+
+.suivant {
+    margin-right: 10px;
+}
+
+.precedent {
+    margin-left: 10px;
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
+.lightbox__overlay.open {
+    animation: fadeIn 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.lightbox__overlay.fadeout {
+    animation: fadeOut 0.5s ease-in-out;
+    animation-fill-mode : forwards;
+}
+
+.lightbox__infos-container {
+    opacity: 1;
+
+}
+
+.lightbox__infos-container.fadein {
+    animation: fadeIn 0.75s ease-in-out;
+    animation-fill-mode : forwards;
+}
+
+.lightbox__next:hover .droite, .lightbox__prev:hover .gauche {
+    transform: translateX(0px);
+}

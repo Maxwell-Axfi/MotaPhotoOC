@@ -1,11 +1,10 @@
 // Ouverture et fermeture de la popup
 jQuery(document).ready(function($) {
-    let referenceText;
-    const modalOpenButton = $('.open_modale');
-    const modalOpenButtonNav = jQuery('.open_modale_nav');
-    const modalOverlay = jQuery('.overlay');
-    const modalContent = jQuery('.modale');
-    const body = jQuery('body');
+    let modalOpenButton = $('.open_modale');
+    let modalOpenButtonNav = jQuery('.open_modale_nav');
+    let modalOverlay = jQuery('.overlay');
+    let modalContent = jQuery('.modale');
+    let body = jQuery('body');
 
 
     // Ouverture de la modale lorsque l'on clique sur "Contact" de la navbar
@@ -21,14 +20,14 @@ jQuery(document).ready(function($) {
         event.stopPropagation();
 
         // Récupérer la référence présente sur la page
-        const referenceElement = jQuery('.single-photo__infos--reference');
+        let referenceElement = jQuery('.single-photo__infos--reference');
         if (referenceElement.length === 0) return;
 
         // Utiliser .text() directement sur l'élément pour obtenir le texte à l'intérieur
-        const referenceText = referenceElement.text().trim();
+        let referenceText = referenceElement.text().trim();
 
         // Ajouter la référence au champ du formulaire
-        const referenceField = jQuery('[name="ref-photo"]');
+        let referenceField = jQuery('[name="ref-photo"]');
         if (referenceField.length === 0) return;
 
         if (referenceText) {
@@ -42,7 +41,7 @@ jQuery(document).ready(function($) {
 
     // Fermeture de la modale lorsque l'on clique à côté
     jQuery(document).on("click", function(event) {
-        const clickedElement = jQuery(event.target);
+        let clickedElement = jQuery(event.target);
 
         // Vérifier si la modale est ouverte et si l'élément cliqué n'est pas un descendant direct de la modale
         if (modalOverlay.hasClass('open') && !modalContent.is(clickedElement) && modalContent.has(clickedElement).length === 0) {
@@ -147,19 +146,6 @@ for (i = 0; i < l; i++) {
 
         // Sélectionne l'élément select HTML d'origine
         let originalSelect = document.querySelector('.originalSelect');
-
-        // Obtient les attributs de données de l'option correspondante dans le select HTML d'origine
-        let originalOption = originalSelect.options[j];
-        let dataValue = selectElement.options[j].getAttribute('value');
-        let dataNonce = originalOption.getAttribute('data-nonce');
-        let dataAction = originalOption.getAttribute('data-action');
-        let dataAjaxUrl = originalOption.getAttribute('data-ajaxurl');
-        
-        // Stocke les attributs de données dans des attributs de données personnalisés de l'option de votre select personnalisé
-        option.setAttribute('data-value', dataValue);
-        option.setAttribute('data-nonce', dataNonce);
-        option.setAttribute('data-action', dataAction);
-        option.setAttribute('data-ajaxurl', dataAjaxUrl);
 
         // Lorsque l'on clique sur une option, met à jour l'élément sélectionné dans la boîte select et l'option sélectionnée
         option.addEventListener("click", function(e) {
@@ -276,24 +262,21 @@ document.addEventListener("click", closeAllSelect);
 jQuery(document).ready(function($) {
 
     // Sélectionne toutes les options de la liste déroulante personnalisée
-    let options = document.querySelectorAll('.accueil__filtres-conteneur .select-items > div');
+    let options = $('.accueil__filtres-conteneur .select-items > div');
 
     function loadPosts() {
         console.log("La valeur du select a changé.");
 
         // Récupère la valeur de l'option sélectionnée du select #category
-        let selectCategory = document.getElementById('category');
-        let categorySlug = selectCategory.value; // Utiliser .value directement pour obtenir la valeur de l'option sélectionnée
+        let categorySlug = $('#category').val(); // Utiliser .value directement pour obtenir la valeur de l'option sélectionnée
         console.log("Catégorie sélectionnée : " + categorySlug);
 
         // Récupère la valeur de l'option sélectionnée du select #format
-        let selectFormat = document.getElementById("format");
-        let format = selectFormat.value;
+        let format = $('#format').val();
         console.log("Catégorie sélectionnée : " + format);
 
         // Récupère la valeur de l'option sélectionnée du select #sort
-        let selectTri = document.getElementById("sort");
-        let tri = selectTri.value;
+        let tri = $('#sort').val();
         console.log("Filtre sélectionnée : " + tri);
 
         console.log("Numéro de la page : " + pageNumber);
@@ -323,6 +306,9 @@ jQuery(document).ready(function($) {
                     $('.photo-block').html(response.data.html);
                     }
 
+                    // Mettre à jour le tableau lightboxData après avoir chargé de nouveaux posts
+                    lightboxDataUpdate();
+
                     if (pageNumber >= response.data.total_pages) {
                         // Si le numéro de la page est supérieur ou égal au nombre total de pages, cacher le bouton "Charger plus"
                         $('#load-more-button').hide();
@@ -345,204 +331,173 @@ jQuery(document).ready(function($) {
     };
     
     // Détecte quand on clique parmi toutes les options
-    options.forEach(option => {
-        option.addEventListener('click', function() {
-            pageNumber = 1;
-            loadPosts();
-        });
+    options.on('click', function() {
+        pageNumber = 1;
+        loadPosts();
     });
 
     // Gestion du numéro de la page
     let pageNumber = 1;
-    let chargerPlus = document.getElementById('load-more-button');
+    let chargerPlus = $('#load-more-button');
 
-    chargerPlus.addEventListener('click', function() {
+    chargerPlus.on('click', function() {
         pageNumber++;
         loadPosts();
     });
 
-    // Appel initial pour charger les premiers posts
-    loadPosts();
-});
 
+    // Lightbox
+    // Déclaration des variables
+    let lightboxOverlay = $('.lightbox__overlay');
+    let body = jQuery('body');
 
-
-
-// Lightbox avec AJAX
-
-// Attendre que le document HTML soit prêt avant d'exécuter le code
-jQuery(document).ready(function($) {
-    // Sélectionne les éléments du DOM pour les boutons de fermeture, flèche droite et flèche gauche
-    let fullscreenButton = document.querySelectorAll('.photo-block__overlay-fullscreen');
-    let fermetureLightbox = $('.lightbox__close');
-
-    // Quand on clique sur un bouton "Fullscreen"
-    fullscreenButton.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            // Empêchez le comportement par défaut du lien
-            event.preventDefault();
-
-            // Récupérez l'ID de la photo associée
-            let postId = this.closest('.photo-block__container').querySelector('.photo-block__img').getAttribute('data-id');
-
-            // Utilisez AJAX pour obtenir les informations du post
-            getPostInfo(postId);
-        });
-    });
-
-    // Fonction pour récupérer les informations du post sans recharger la page
-    function getPostInfo(postId) {
-        jQuery.ajax({
-            url: ajax_object.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'get_post_info',
-                post_id: postId
-            },
-            success: function(response) {
-                // Mettez à jour la lightbox avec les nouvelles informations
-                $('.lightbox__container').html(response.data);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-    }
-});
-
-
-
-
-/*
-
-//Ajax
-(function ($) {
-    $(document).ready(function () {
-        let currentPage = 2; // Commencer à partir de la deuxième page
-
-    updateButton(body.data.no_more_posts);
-
-    console.log('Filtration Response:', body);
-
-    if (body.data.posts) {
-        console.log('Filtered Posts:', body.data.posts);
-    } else {
-        console.warn('Aucun post filtré trouvé. Response complète:', body);
+    // Ouvrir la lightbox
+    function openLightbox() {
+        if (lightboxOverlay.hasClass('close')) {
+            lightboxOverlay.removeClass('close').addClass('open');
+            lightboxOverlay.removeClass('fadeout');
+            body.addClass('lightbox-open');
+        }
     }
 
-    return true;
-};
+    // Fermer la lightbox
+    function closeLightbox() {
+        if (lightboxOverlay.hasClass('open')) {
+            lightboxOverlay.removeClass('open').addClass('fadeout');
+            setTimeout(function() {
+                lightboxOverlay.addClass('close');
+                body.removeClass('lightbox-open');
+            }, 500);
+        }
+    }
 
+    // Ferme la lightbox en cliquant sur la croix
+    $(document).on('click', '.lightbox__close', function(event) {
+        event.stopPropagation();
+        closeLightbox();
+    });
+
+    // Ferme la lightbox en cliquant sur Echap
+    $(document).on('keyup', function(event) {
+        if (event.key === 'Escape' && lightboxOverlay.hasClass('open')) {
+            closeLightbox();
+        }
+    });
+
+    // Sélectionne les premiers boutons fullscreen
+    let lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+    // Réinitialise le tableau lightboxData à chaque appel de lightboxDataUpdate
+    lightboxData = [];
+
+    // Mettre à jour le tableau lightboxData avec les données des premiers éléments .lightbox-trigger (donc page accueil par défaut)
+    lightboxDataUpdate();
+
+    // Fonction pour gérer  la mise à jour du tableau lightboxData, donc toutes les data présentes dans les boutons fullscreen
+    function lightboxDataUpdate() {
+
+        // Réinitialise le tableau lightboxData à chaque appel de lightboxDataUpdate
+        lightboxData = [];
+
+        // Resélectionne bien tous les éléments .lightbox-trigger de la page (les boutons fullscreen)
+        lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+        // Parcours chaque élément .lightbox-trigger pour mettre à jour le tableau lightboxData
+        lightboxTriggers.forEach(function(e) {
+            let src = e.getAttribute('data-src');
+            let alt = e.getAttribute('data-alt');
+            let reference = e.getAttribute('data-reference');
+            let category = e.getAttribute('data-category');
         
-        
-
-        const loadMorePhotos = function () {
-            const $button = $(this);
-            const ajaxurl = $button.data('ajaxurl');
-            const data = {
-                action: 'load_photos',
-                nonce: $button.data('nonce'),
-                paged: currentPage, // Utilisation de la variable de pagination
-                category: $('#category').val() || '', // Ajout de la catégorie actuelle
-                format: $('#format').val() || '', // Ajout du format actuel
-                sort: $('#sort').val() || '', // Ajout du tri actuel
-            };
-
-            console.log('Ajax URL:', ajaxurl);
-            console.log('Data:', data);
-
-            ajaxCall(ajaxurl, data, (body) => {
-                if (handleAjaxResponse(body, (noMorePosts) => {
-                    const $photosContainer = $('.photo-block');
-
-                    console.log('Current Page:', currentPage);
-                    console.log('No More Posts:', noMorePosts);
-
-                    const tempDiv = $('<div>').html(body.data.html);
-                    const newPhotos = tempDiv.find('.photo-block');
-
-                    console.log('New Photos:', newPhotos);
-
-                    $photosContainer.append(newPhotos); // Ajouter au contenu existant
-
-                    if (noMorePosts) {
-                        $button.hide(); // Masquer le bouton s'il n'y a plus de posts à charger
-                    } else {
-                        currentPage++; // Incrémenter la page actuelle
-                    }
-                })) {
-                    // Handle other actions if needed
-                }
-            }, (error) => {
-                console.error('Erreur lors de la requête Ajax:', error);
-                alert('Une erreur inattendue s\'est produite. Veuillez réessayer.');
+            // Ajoute les données dans le tableau
+            lightboxData.push ({
+                src: src,
+                alt: alt,
+                reference: reference,
+                category: category
             });
-        };
-
-        const updateLoadMoreButton = (noMorePosts) => {
-            const $button = $('.accueil__button');
-            const $photosContainer = $('.photo-block');
-
-            if (noMorePosts || $photosContainer.find('.photo-block').length === 0) {
-                $button.hide();
-            } else {
-                $button.show();
-            }
-        };
-
-        const handleFiltrationChange = function () {
-            const category = $('#category').val() || '';
-            const format = $('#format').val() || '';
-            const sort = $('#sort').val() || '';
-
-            console.log('Selected category:', category);
-            console.log('Selected format:', format);
-            console.log('Selected sort:', sort);
-
-            currentPage = 2; // Commencer à partir de la première page lors de la filtration
-
-            const data = {
-                action: 'filtration',
-                category: category,
-                format: format,
-                sort: sort,
-                nonce: ajax_object.nonce,
-            };
-
-            console.log('Ajax data:', data);
-
-            ajaxCall(ajax_object.ajax_url, data, (body) => {
-                if (handleAjaxResponse(body, (noMorePosts) => {
-                    const $photosContainer = $('.photo-block');
-
-                    console.log('Filtration Response:', body);
-                    console.log('No More Posts (Filtration):', noMorePosts);
-
-                    // Log the posts array
-                    console.log('Filtered Posts:', body.data.posts);
-
-                    const tempDiv = $('<div>').html(body.data.html);
-                    const newPhotos = tempDiv.find('.photo-block');
-
-                    console.log('New Photos (Filtration):', newPhotos);
-
-                    $photosContainer.html(newPhotos); // Remplacer le contenu existant par les nouvelles photos
-                    updateLoadMoreButton(noMorePosts);
-                    $('.accueil__button').data('paged', currentPage); // Mettre à jour le numéro de page du bouton
-                })) {
-                    // Handle other actions if needed
-                }
-            }, (error) => {
-                console.error('Ajax Error:', error);
-            });
-        };
-
-        $('.accueil__button').click(function (e) {
-            e.preventDefault();
-            loadMorePhotos.call(this);
         });
 
-        $('#category, #format, #sort').change(handleFiltrationChange);
+        console.log("Contenu de lightboxData après la mise à jour : ", lightboxData);
+    }
+
+    // Gestion du clic sur les .lightbox-trigger avec délégation d'événements
+    $(document).on('click', '.lightbox-trigger', function() {
+        // Récupérer l'index du déclencheur
+        let index = $(this).index('.lightbox-trigger');
+        // Mettre à jour la lightbox avec les données correspondantes
+        updateLightbox(index);
+        // Ouvrir la lightbox
+        openLightbox();
     });
-})(jQuery);
-*/
+
+    // Fonction pour mettre à jour la lightbox avec les données de l'élément à l'index spécifié
+    function updateLightbox(index) {
+        let lightboxImage = document.querySelector('.lightbox__image');
+        let lightboxReference = document.querySelector('.lightbox-reference');
+        let lightboxCategorie = document.querySelector('.lightbox-categorie');
+
+        // Utilisez l'index pour accéder aux données dans le tableau lightboxData
+        let data = lightboxData[index];
+
+        // Mettez à jour les éléments de la lightbox avec les nouvelles données
+        lightboxImage.src = data.src;
+        lightboxImage.alt = data.alt;
+        lightboxReference.textContent = data.reference;
+        lightboxCategorie.textContent = data.category;
+
+        // Masquer ou afficher la flèche précédente en fonction de l'index
+        if (index === 0) {
+            lightboxPrev.style.visibility = "hidden";
+        } else {
+            lightboxPrev.style.visibility = "visible";
+        }
+
+        // Masquer ou afficher la flèche suivante en fonction de l'index
+        if (index === lightboxData.length - 1) {
+            lightboxNext.style.visibility = "hidden";
+        } else {
+            lightboxNext.style.visibility = "visible";
+        }
+    }
+
+    // Gestion de la navigation avec les flèches
+    let lightboxNext = document.querySelector('.lightbox__next');
+    let lightboxPrev = document.querySelector('.lightbox__prev');
+
+    lightboxNext.addEventListener('click', function() {
+        // Obtenez l'index de l'élément actuellement affiché
+        let currentIndex = lightboxData.findIndex(data => data.src === document.querySelector('.lightbox__image').src);
+
+        // Si l'élément actuel n'est pas le dernier, passez à l'élément suivant
+        if (currentIndex < lightboxData.length - 1) {
+            updateLightbox(currentIndex + 1);
+        }
+
+        // Ajoutez la classe pour afficher la lightbox avec un effet de fondu
+        $('.lightbox__infos-container').addClass('fadein');
+
+        // Supprimez la classe après un délai pour que l'effet de fondu ne se reproduise pas à chaque fois
+        setTimeout(function() {
+            $('.lightbox__infos-container').removeClass('fadein');
+        }, 750); // Ajustez le délai selon vos préférences, ici 300ms pour correspondre à la durée de la transition définie dans CSS
+    });
+
+    lightboxPrev.addEventListener('click', function() {
+        // Obtenez l'index de l'élément actuellement affiché
+        let currentIndex = lightboxData.findIndex(data => data.src === document.querySelector('.lightbox__image').src);
+
+        // Si l'élément actuel n'est pas le premier, passez à l'élément précédent
+        if (currentIndex > 0) {
+            updateLightbox(currentIndex - 1);
+        }
+
+        // Ajoutez la classe pour afficher la lightbox avec un effet de fondu
+        $('.lightbox__infos-container').addClass('fadein');
+
+        // Supprimez la classe après un délai pour que l'effet de fondu ne se reproduise pas à chaque fois
+        setTimeout(function() {
+            $('.lightbox__infos-container').removeClass('fadein');
+        }, 750); // Ajustez le délai selon vos préférences, ici 300ms pour correspondre à la durée de la transition définie dans CSS
+    });
+});

@@ -155,7 +155,6 @@ $query = new WP_Query($related_posts_args);
     get_template_part('templates-part/photo_block', null, ['post_ids' => $post_ids]);
     ?>
         </div>
-        <button class="button single-photo__more-button">Toutes les photos</button>
     </article>
 </section>
 
