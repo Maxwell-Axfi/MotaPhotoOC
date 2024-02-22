@@ -13,12 +13,18 @@
             <a href="<?php echo home_url(); ?>" class="navbar__logo">
                 <img class="navbar__img" src="<?php echo get_stylesheet_directory_uri() . '/assets/logo.svg'; ?>" alt="Nathalie Mota" />
             </a>
-            <nav class="navbar__menu">
+
+            <div class="navbar__burger">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+
+            <nav class="navbar__menu close">
                 <?php wp_nav_menu( array(
                     'theme_location' => 'main_menu',
                     'menu_class' => 'navbar__list',
                 ));?>
-            
             </nav>
         </div>
     </header>

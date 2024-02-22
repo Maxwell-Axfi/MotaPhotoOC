@@ -501,3 +501,89 @@ jQuery(document).ready(function($) {
         }, 750); // Ajustez le délai selon vos préférences, ici 300ms pour correspondre à la durée de la transition définie dans CSS
     });
 });
+
+
+// MENU BURGER
+document.addEventListener("DOMContentLoaded", function() {
+
+    let burger = document.querySelector('.navbar__burger');
+    let menuMobile = document.querySelector('.navbar__menu');
+    let menuItems = document.querySelectorAll('.navbar__list > .menu-item');
+
+    function displayBurger() {
+        if (window.innerWidth <= 767) {
+            // Si l'écran est de 767px ou moins
+            burger.classList.remove('hidden');
+            menuMobile.classList.add('close');
+            menuMobile.classList.remove('open');
+            burger.classList.remove('opened');
+            // Activer les événements
+            enableEvents();
+        } else {
+            // Si l'écran est plus grand que 767px
+            burger.classList.add('hidden');
+            openMenu();
+            // Désactiver les événements
+            disableEvents();
+        }
+    }
+
+    // Refait displayBurger si la taille de la fenêtre change pour vérifier sa taille
+    window.addEventListener('resize', displayBurger);
+
+    // Exécuter une fois au chargement de la page pour initialiser les classes
+    displayBurger();
+
+
+    function toggleMenu() {
+        if (menuMobile.classList.contains('open')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    }
+
+    function openMenu() {
+        menuMobile.classList.add('open');
+        menuMobile.classList.remove('close');
+        burger.classList.add('opened');
+    }
+
+    function closeMenu() {
+        burger.classList.remove('opened');
+        menuMobile.classList.add('close');
+        setTimeout(function() {
+            menuMobile.classList.remove('open');
+        }, 1000);
+    }
+
+    function enableEvents() {
+        // Gestion de l'événement de clic en dehors du menu pour le fermer
+        document.addEventListener("click", clickOutsideMenu);
+
+        // Gestion de l'événement de clic sur les liens du menu pour le fermer
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', closeMenu);
+        });
+
+        // Gestion de l'événement de clic sur le bouton de déclenchement de la modale
+        burger.addEventListener("click", toggleMenu);
+    }
+
+
+    function disableEvents() {
+        // Retirer les gestionnaires d'événements
+        document.removeEventListener("click", clickOutsideMenu);
+        menuItems.forEach(function(item) {
+            item.removeEventListener('click', closeMenu);
+            console.log('Click');
+        });
+        burger.removeEventListener("click", toggleMenu);
+    }
+
+    function clickOutsideMenu(event) {
+        if (!menuMobile.contains(event.target) && !burger.contains(event.target)) {
+            closeMenu();
+        }
+    }
+});

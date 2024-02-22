@@ -59,7 +59,7 @@ h2, p {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .visible {
