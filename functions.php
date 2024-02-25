@@ -59,7 +59,6 @@ function get_custom_post_args($context) {
             break;
         // Ajoutez d'autres cas ici selon les besoins
     }
-
     return $args;
 }
 

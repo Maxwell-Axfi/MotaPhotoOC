@@ -24,7 +24,7 @@
         top: -414px;
     }
 
-    // Lightbox
+    // LIGHTBOX
 
     .lightbox, .lightbox__close-container {
         width: 100%;
@@ -43,6 +43,7 @@
     }
 
     // SINGLE
+
     .single-photo {
         width: 925px;
 
@@ -142,8 +143,9 @@
     }
 
     // SINGLE
-.single-photo {
-    width: 668px;
+
+    .single-photo {
+        width: 668px;
 
         &__card {
             flex-direction: column-reverse;
@@ -210,6 +212,7 @@
     }
 
     //NAVBAR
+
     .navbar {
         &__conteneur {
             height: 72px;
@@ -443,8 +446,6 @@
             width: 265px;
         }
     }
-
-
 }
 
 // Burger
@@ -473,7 +474,8 @@
         transition: all .3s ease-in-out;
     }
 
-    /*Croix*/
+    // Croix
+
     &.opened {
         .line:nth-child(2) {
             opacity: 0;

@@ -3,10 +3,7 @@
 Template Name: Accueil
 */
 
- get_header() ?>
-
-
-<?php
+ get_header()
 
 // WP_Query pour récupérer x posts du même custom post type
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;
@@ -140,6 +137,5 @@ $all_formats = get_terms(array(
     data-paged="2"
     data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>">
     Charger plus</button>
-
 
 <?php get_footer() ?>

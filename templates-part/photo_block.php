@@ -35,5 +35,3 @@ if (!empty($post_ids)) :
 <?php else : ?>
     <p>Aucune photo trouvée.</p>
 <?php endif; ?>
-
-

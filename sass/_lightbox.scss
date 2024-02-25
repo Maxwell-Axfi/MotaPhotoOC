@@ -1,3 +1,5 @@
+/*Animations*/
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -16,14 +18,14 @@
     }
 }
 
+/* Style */
+
 .lightbox__overlay {
     position: fixed;
     top: 0px;
     height: 100vh;
     width: 100vw;
     background-color: #000000CC;
-
-
 }
 
 .lightbox {

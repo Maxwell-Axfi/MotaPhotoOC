@@ -2,49 +2,45 @@
 /*
 Theme Name: motaphoto
 */
-/*Déclaration des fonts du site*/
-/* Space Mono - Regular 400*/
+/* Chargement des fonts du site */
 @font-face {
   font-family: "Space Mono";
   src: url("fonts/SpaceMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
-/*Space Mono - Regular 700*/
 @font-face {
   font-family: "Space Mono";
   src: url("fonts/SpaceMono-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
-/*Space Mono - Italic 400*/
 @font-face {
   font-family: "Space Mono";
   src: url("fonts/SpaceMono-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
 }
-/*Space Mono - Italic 700*/
 @font-face {
   font-family: "Space Mono";
   src: url("fonts/SpaceMono-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
 }
-/*Poppins - Regular 300*/
 @font-face {
   font-family: "Poppins";
   src: url("fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
-/*Poppins - Regular 500*/
 @font-face {
   font-family: "Poppins";
   src: url("fonts/Poppins-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
+/* Mixin pour set les fonts */
+/* Déclaration des fonts */
 a {
   color: #000000;
   text-decoration: none;
@@ -290,6 +286,7 @@ h2, p {
   pointer-events: none;
 }
 
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -306,6 +303,7 @@ h2, p {
     opacity: 0;
   }
 }
+/* Style */
 .modale {
   width: 585px;
   max-height: 759px;
@@ -362,22 +360,15 @@ h2, p {
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.8);
 }
-
 .overlay.open {
   animation: fadeIn 1.5s ease-in-out;
   opacity: 1;
 }
-
-.overlay.fadeout {
+.overlay.fadout {
   animation: fadeOut 0.5s ease-in-out;
   animation-fill-mode: forwards;
 }
 
-/*À faire, gérer le message de validation d'envoi, il est hors champs
-.wpcf7 form .wpcf7-response-output {
-    margin-top: -2em;
-    padding: 0em 0em;
-}*/
 .single-photo {
   width: 1150px;
   margin: auto;
@@ -678,6 +669,7 @@ h2, p {
   border-radius: 0px 0px 8px 8px;
 }
 
+/*Animations*/
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -694,6 +686,7 @@ h2, p {
     opacity: 0;
   }
 }
+/* Style */
 .lightbox__overlay {
   position: fixed;
   top: 0px;
@@ -1164,7 +1157,6 @@ body.lightbox-open {
   top: 0;
   right: 40px;
   cursor: pointer;
-  /*Croix*/
 }
 .navbar__burger .line {
   height: 2px;
