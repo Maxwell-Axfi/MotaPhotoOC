@@ -18,7 +18,8 @@
 
 .modale {
     width: 585px;
-    height: 759px;
+    max-height: 759px;
+    height: 80vh;
     border: solid black 5px;
     display: flex;
     flex-direction: column;
@@ -26,10 +27,10 @@
     align-items: center;
     margin: auto;
     position: fixed;
-    top: 104px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
+    transform: translate(-50%, -50%);
+    overflow-x: hidden;
     background-color: white;
 
     &__img {

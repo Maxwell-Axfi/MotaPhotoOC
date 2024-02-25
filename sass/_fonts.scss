@@ -122,7 +122,11 @@ p {
 }
 
 @media screen and (max-width: $mobile) {
-    .menu-item {
+    .navbar__list > .menu-item {
         @include set-font("Space Mono", monospace, 44px, 65px, uppercase, 400);
+    }
+
+    .single-photo__title {
+        @include set-font("Space Mono", monospace, 46px, 48px, uppercase, 400);
     }
 }

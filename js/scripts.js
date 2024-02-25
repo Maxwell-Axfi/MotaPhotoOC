@@ -587,3 +587,62 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+
+// Responsive : décalage des autres boîtes select quand le menu des options est ouvert
+jQuery(document).ready(function($) {
+    let selectCategories = '.accueil__filtres-categories';
+    let selectFormats = '.accueil__filtres-formats';
+    let selectTri = '.accueil__filtres-tri';
+
+    // Fonction pour vérifier si une boîte de sélection a la classe .select-hide
+    function isSelectHidden(selectElement) {
+        return $(selectElement + ' .select-items').hasClass('select-hide');
+    }
+
+    // Fonction pour ajuster le margin-bottom en fonction de la présence de la classe .select-hide
+    function adjustSelectMargin() {
+        if ($(window).width() <= 1024) {
+            if (isSelectHidden(selectCategories)) {
+                $(selectCategories).css('margin-bottom', '0');
+            } else {
+                $(selectCategories).css('margin-bottom', '210px');
+            }
+
+            if (isSelectHidden(selectFormats)) {
+                $(selectFormats).css('margin-bottom', '8px');
+            } else {
+                $(selectFormats).css('margin-bottom', '134px');
+            }
+
+            if (isSelectHidden(selectTri)) {
+                $(selectTri).css('margin-bottom', '0');
+            } else {
+                $(selectTri).css('margin-bottom', '126px');
+            }
+        } else {
+            // Réinitialisation du margin si la largeur est supérieure à 1024px
+            console.log("Window width is greater than 1024px");
+            $(selectCategories + ', ' + selectFormats + ', ' + selectTri).css('margin-bottom', '0');
+        }
+    }
+
+    // Gestionnaire d'événements pour les clics sur les éléments de sélection eux-mêmes (.select-selected)
+    $('.select-selected').on('click', function(event) {
+        // Réexécuter isSelectHidden() et adjustSelectMargin() lorsque vous cliquez sur .select-selected
+        isSelectHidden();
+        adjustSelectMargin();
+
+        // Assurez-vous d'arrêter la propagation de l'événement pour éviter que le clic ne se propage ailleurs
+        event.stopPropagation();
+    });
+
+    // Gestionnaire d'événements pour les clics sur le document pour fermer les menus déroulants
+    $(document).on('click', function(event) {
+        // Vérifier si le clic est à l'extérieur des sélecteurs
+        if (!$(event.target).closest('.select-selected').length) {
+            // Réexécuter isSelectHidden() et adjustSelectMargin() lorsque vous cliquez en dehors de .select-selected
+            adjustSelectMargin();
+        }
+    });
+});
