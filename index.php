@@ -3,8 +3,9 @@
 Template Name: Accueil
 */
 
- get_header()
+ get_header() ?>
 
+<?php
 // WP_Query pour récupérer x posts du même custom post type
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 
